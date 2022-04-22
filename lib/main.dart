@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  var buttonSel = [false, false];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,6 +37,15 @@ class MyAppState extends State<MyApp> {
               Image.asset(
                 'assets/images/mri_scan.jpg',
               ), //height: 800, width: 650
+              ToggleButtons(
+                children: [Icon(Icons.filter_1), Icon(Icons.filter_2)],
+                onPressed: (int index) {
+                  setState(() {
+                    buttonSel[index] = !buttonSel[index];
+                  });
+                },
+                isSelected: buttonSel,
+              ),
             ]),
           )),
     );
