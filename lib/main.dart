@@ -28,17 +28,26 @@ class MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
+          // resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const Text('MRI Scan'),
           ),
           body: Align(
             alignment: Alignment.topCenter,
             child: Column(children: <Widget>[
-              Image.asset(
-                'assets/images/mri_scan.jpg',
-              ), //height: 800, width: 650
+              Container(
+                alignment: Alignment.topCenter,
+                height: 650,
+                width: 800,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/mri_scan.jpg'),
+                    fit: BoxFit.fitWidth,
+                  ), //
+                ),
+              ),
               ToggleButtons(
-                children: [Icon(Icons.filter_1), Icon(Icons.filter_2)],
+                children: const [Icon(Icons.filter_1), Icon(Icons.filter_2)],
                 onPressed: (int index) {
                   setState(() {
                     buttonSel[index] = !buttonSel[index];
