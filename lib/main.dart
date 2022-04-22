@@ -32,6 +32,11 @@ class MyAppState extends State<MyApp> {
           ),
           body: Align(
             alignment: Alignment.topCenter,
+            child: Column(children: <Widget>[
+              Image.asset(
+                'assets/images/mri_scan.jpg',
+              ), //height: 800, width: 650
+            ]),
           )),
     );
   }
