@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 import 'dart:html';
+// import 'dart:async';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,7 +21,18 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  final String svgStart = '<svg width="500" height="500">';
+  final String svgEnd = '</svg>';
+
+  final String svgBox0 =
+      '<rect x="10" y="20" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />';
+  final String svgBox1 =
+      '<rect  x="100" y="200" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />';
+
+  String rawSvgbox = '<svg width="500" height="500"></svg>';
+
   var buttonSel = [false, false];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,15 +55,27 @@ class MyAppState extends State<MyApp> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/mri_scan.jpg'),
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.none,
                   ), //
                 ),
+                child: SvgPicture.string(rawSvgbox),
+                // child: SvgPicture.string(rawSvgbox),
               ),
               ToggleButtons(
                 children: const [Icon(Icons.filter_1), Icon(Icons.filter_2)],
                 onPressed: (int index) {
                   setState(() {
                     buttonSel[index] = !buttonSel[index];
+
+                    String newSvg = "";
+                    if (buttonSel[0]) {
+                      newSvg += svgBox0;
+                    }
+                    if (buttonSel[1]) {
+                      newSvg += svgBox1;
+                    }
+
+                    rawSvgbox = svgStart + newSvg + svgEnd;
                   });
                 },
                 isSelected: buttonSel,
