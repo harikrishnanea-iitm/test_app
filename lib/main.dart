@@ -41,7 +41,6 @@ class MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-          // resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const Text('MRI Scan'),
           ),
@@ -56,26 +55,14 @@ class MyAppState extends State<MyApp> {
                   image: DecorationImage(
                     image: AssetImage('assets/images/mri_scan.jpg'),
                     fit: BoxFit.none,
-                  ), //
                 ),
-                child: SvgPicture.string(rawSvgbox),
-                // child: SvgPicture.string(rawSvgbox),
+                ),
               ),
               ToggleButtons(
                 children: const [Icon(Icons.filter_1), Icon(Icons.filter_2)],
                 onPressed: (int index) {
                   setState(() {
                     buttonSel[index] = !buttonSel[index];
-
-                    String newSvg = "";
-                    if (buttonSel[0]) {
-                      newSvg += svgBox0;
-                    }
-                    if (buttonSel[1]) {
-                      newSvg += svgBox1;
-                    }
-
-                    rawSvgbox = svgStart + newSvg + svgEnd;
                   });
                 },
                 isSelected: buttonSel,
