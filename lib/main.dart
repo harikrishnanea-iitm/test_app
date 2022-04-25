@@ -21,17 +21,17 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  final String svgStart = '<svg width="500" height="500">';
-  final String svgEnd = '</svg>';
+  final List<String> svgBox = [
+    '''<svg width="800" height="650"><rect x="10" y="20" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>''',
+    '''<svg width="800" height="650"><rect  x="100" y="200" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'''
+  ];
 
-  final String svgBox0 =
-      '<rect x="10" y="20" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />';
-  final String svgBox1 =
-      '<rect  x="100" y="200" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />';
+  final List<String> svgAsset = [
+    "assets/images/box0.svg",
+    "assets/images/box1.svg"
+  ];
 
-  String rawSvgbox = '<svg width="500" height="500"></svg>';
-
-  var buttonSel = [false, false];
+  List<bool> buttonSel = [false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class MyAppState extends State<MyApp> {
                   image: DecorationImage(
                     image: AssetImage('assets/images/mri_scan.jpg'),
                     fit: BoxFit.none,
-                ),
+                  ),
                 ),
               ),
               ToggleButtons(
