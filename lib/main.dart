@@ -22,31 +22,27 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<String> svgBox = [
-    '<svg width="800" height="650"><rect x="10" y="20" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>',
-    '<svg width="800" height="650"><rect  x="100" y="200" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'
+    '<svg width="800" height="650"><rect x="110" y="120" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>',
+    '<svg width="800" height="650"><rect  x="200" y="300" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'
   ];
 
-  final List<String> svgAsset = [
-    "assets/images/box0.svg",
-    "assets/images/box1.svg"
-  ];
+  // final List<String> svgAsset = [
+  //   "assets/images/box0.svg",
+  //   "assets/images/box1.svg"
+  // ];
 
-  final String blankSvg = '<svg width="800" height="650"></svg>';
-  final String blankSvgAsset = "assets/images/blank.svg";
-
-  String box0 = '<svg width="800" height="650"></svg>';
-  String box1 = '<svg width="800" height="650"></svg>';
+  // final String blankSvg = '<svg width="800" height="650"></svg>';
+  // final String blankSvgAsset = "assets/images/blank.svg";
 
   List<bool> buttonSel = [false, false];
 
   @override
   initState() {
     super.initState();
-    fetchButtonState();
   }
 
   fetchButtonState() async {
-    print("fetch state");
+    return buttonSel;
   }
 
   @override
@@ -73,32 +69,38 @@ class MyAppState extends State<MyApp> {
                     fit: BoxFit.none,
                   ),
                 ),
-                child: Stack(children: [
-                  SvgPicture.string(box0),
-                  SvgPicture.string(box1)
-                  // CustomPaint(painter: svgPainter(svgBox0, buttonSel[0])),
-                  // CustomPaint(painter: svgPainter(svgBox1, buttonSel[1]))
-                ]),
+                child: FutureBuilder(
+                  future: fetchButtonState(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    List<Widget> children;
+
+                    if (snapshot.hasData) {
+                      var buttonState = snapshot.data;
+
+                      children = [SizedBox.shrink(), SizedBox.shrink()];
+
+                      if (buttonState[0]) {
+                        children[0] = SvgPicture.string(svgBox[0]);
+                      }
+                      if (buttonState[1]) {
+                        children[1] = SvgPicture.string(svgBox[1]);
+                      }
+
+                      return Stack(
+                        children: children,
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
               ),
               ToggleButtons(
                 children: const [Icon(Icons.filter_1), Icon(Icons.filter_2)],
                 onPressed: (int index) {
                   setState(() {
                     buttonSel[index] = !buttonSel[index];
-
-                    if (buttonSel[0]) {
-                      box0 = svgBox[0];
-                    } else {
-                      box0 = blankSvg;
-                    }
-
-                    if (buttonSel[1]) {
-                      box1 = svgBox[1];
-                    } else {
-                      box1 = blankSvg;
-                    }
-
-                    // fetchButtonState();
                   });
                 },
                 isSelected: buttonSel,
