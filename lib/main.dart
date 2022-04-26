@@ -39,9 +39,9 @@ class MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  fetchButtonState() async {
-    return buttonSel;
-  }
+  // fetchButtonState() async {
+  //   return buttonSel;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,35 +67,26 @@ class MyAppState extends State<MyApp> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                child: FutureBuilder(
-                  future: fetchButtonState(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                child: Builder(
+                  builder: (BuildContext context) {
                     List<Widget> children;
+                    children = [
+                      const SizedBox.shrink(),
+                      const SizedBox.shrink()
+                    ];
 
-                    if (snapshot.hasData) {
-                      var buttonState = snapshot.data;
-
-                      children = [
-                        const SizedBox.shrink(),
-                        const SizedBox.shrink()
-                      ];
-
-                      if (buttonState[0]) {
-                        // children[0] = SvgPicture.string(svgBox[0]);
-                        children[0] = SvgPicture.asset(svgAsset[0]);
-                      }
-                      if (buttonState[1]) {
-                        // children[1] = SvgPicture.string(svgBox[1]);
-                        children[1] = SvgPicture.asset(svgAsset[1]);
-                      }
-
-                      return Stack(
-                        children: children,
-                      );
-                    } else {
-                      return const SizedBox.shrink();
+                    if (buttonSel[0]) {
+                      // children[0] = SvgPicture.string(svgBox[0]);
+                      children[0] = SvgPicture.asset(svgAsset[0]);
                     }
+                    if (buttonSel[1]) {
+                      // children[1] = SvgPicture.string(svgBox[1]);
+                      children[1] = SvgPicture.asset(svgAsset[1]);
+                    }
+
+                    return Stack(
+                      children: children,
+                    );
                   },
                 ),
               ),
