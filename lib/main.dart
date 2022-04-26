@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// ignore: avoid_web_libraries_in_flutter, unused_import
 import 'dart:html';
 // import 'dart:async';
 // import 'dart:ui';
@@ -22,17 +23,14 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   final List<String> svgBox = [
-    '<svg width="800" height="650"><rect x="110" y="120" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>',
-    '<svg width="800" height="650"><rect  x="200" y="300" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'
+    '<svg width="800" height="650"><rect x="210" y="220" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>',
+    '<svg width="800" height="650"><rect  x="300" y="400" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'
   ];
 
-  // final List<String> svgAsset = [
-  //   "assets/images/box0.svg",
-  //   "assets/images/box1.svg"
-  // ];
-
-  // final String blankSvg = '<svg width="800" height="650"></svg>';
-  // final String blankSvgAsset = "assets/images/blank.svg";
+  final List<String> svgAsset = [
+    'assets/images/box0.svg',
+    'assets/images/box1.svg'
+  ];
 
   List<bool> buttonSel = [false, false];
 
@@ -66,7 +64,7 @@ class MyAppState extends State<MyApp> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/mri_scan.jpg'),
-                    fit: BoxFit.none,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 child: FutureBuilder(
@@ -78,13 +76,18 @@ class MyAppState extends State<MyApp> {
                     if (snapshot.hasData) {
                       var buttonState = snapshot.data;
 
-                      children = [SizedBox.shrink(), SizedBox.shrink()];
+                      children = [
+                        const SizedBox.shrink(),
+                        const SizedBox.shrink()
+                      ];
 
                       if (buttonState[0]) {
-                        children[0] = SvgPicture.string(svgBox[0]);
+                        // children[0] = SvgPicture.string(svgBox[0]);
+                        children[0] = SvgPicture.asset(svgAsset[0]);
                       }
                       if (buttonState[1]) {
-                        children[1] = SvgPicture.string(svgBox[1]);
+                        // children[1] = SvgPicture.string(svgBox[1]);
+                        children[1] = SvgPicture.asset(svgAsset[1]);
                       }
 
                       return Stack(
