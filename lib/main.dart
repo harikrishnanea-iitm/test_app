@@ -22,15 +22,13 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  final List<String> svgBox = [
-    '<svg width="800" height="650"><rect x="210" y="220" width="150" height="150" style="fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>',
-    '<svg width="800" height="650"><rect  x="300" y="400" width="200" height="150" style="fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></svg>'
-  ];
+  final svgBoxes = 'assets/images/box.svg';
+  final svgBoxAsset = '''
+        <rect class="grp1" x="210" y="220" width="150" height="150" style="display:block;fill:white;stroke:green;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />
+        <rect class="grp2" x="300" y="400" width="200" height="150" style="display:block;fill:white;stroke:blue;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" />
+''';
 
-  final List<String> svgAsset = [
-    'assets/images/box0.svg',
-    'assets/images/box1.svg'
-  ];
+  final svgBoxesPicture = SvgPicture.asset('assets/images/box.svg');
 
   List<bool> buttonSel = [false, false];
 
@@ -58,38 +56,16 @@ class MyAppState extends State<MyApp> {
             alignment: Alignment.topCenter,
             child: Column(children: <Widget>[
               Container(
-                alignment: Alignment.topCenter,
-                height: 650,
-                width: 800,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/mri_scan.jpg'),
-                    fit: BoxFit.contain,
+                  alignment: Alignment.topCenter,
+                  height: 650,
+                  width: 800,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/mri_scan.jpg'),
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                child: Builder(
-                  builder: (BuildContext context) {
-                    List<Widget> children;
-                    children = [
-                      const SizedBox.shrink(),
-                      const SizedBox.shrink()
-                    ];
-
-                    if (buttonSel[0]) {
-                      // children[0] = SvgPicture.string(svgBox[0]);
-                      children[0] = SvgPicture.asset(svgAsset[0]);
-                    }
-                    if (buttonSel[1]) {
-                      // children[1] = SvgPicture.string(svgBox[1]);
-                      children[1] = SvgPicture.asset(svgAsset[1]);
-                    }
-
-                    return Stack(
-                      children: children,
-                    );
-                  },
-                ),
-              ),
+                  child: SvgPicture.asset(svgBoxes)),
               ToggleButtons(
                 children: const [Icon(Icons.filter_1), Icon(Icons.filter_2)],
                 onPressed: (int index) {

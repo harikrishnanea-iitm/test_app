@@ -1,8 +1,0 @@
-<?xml version="1.0" standalone="yes"?>
-<parent xmlns="http://example.org"
-        xmlns:svg="http://www.w3.org/2000/svg">
-   <!-- parent contents here -->
-    <svg:svg width="800" height="650">
-    </svg:svg>
-   <!-- ... -->
-</parent>
